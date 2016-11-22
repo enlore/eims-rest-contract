@@ -20,6 +20,8 @@ module.exports = function connectPayloadFactory (req, opts, paramsGenerator) {
     let start        = opts.start;
     let limit        = opts.limit;
     let data         = opts.data;
+    let errorMessage = opts.errorMessage;
+    let statusCode   = opts.statusCode;
 
     let resourcePath = req.url;
     let params;
@@ -36,32 +38,35 @@ module.exports = function connectPayloadFactory (req, opts, paramsGenerator) {
     }
 
     return {
-      timestamp: Date.now(),
+        timestamp: Date.now(),
 
-      // touched timestamp for entity
-      lastUpdated: lastUpdated,
+        // touched timestamp for entity
+        lastUpdated: lastUpdated,
 
-      // request lifecycle id - should 
-      // match on request/response pair if applicable
-      requestId: reqId,
+        // request lifecycle id - should 
+        // match on request/response pair if applicable
+        requestId: reqId,
 
-      // entity id
-      id: id,
+        // entity id
+        id: id,
 
-      // full path to entity on server
-      resourcePath: resourcePath,
+        // full path to entity on server
+        resourcePath: resourcePath,
 
-      // flag indicates if this payload was sent from
-      // server without request (i.e. a push via websocket)
-      push: push || false,
+        // flag indicates if this payload was sent from
+        // server without request (i.e. a push via websocket)
+        push: push || false,
 
-      start: start,
-      limit: limit,
+        start: start,
+        limit: limit,
 
-      // original request body
-      params: params,
+        // original request body
+        params: params,
 
-      // response payload
-      data: data
+        // response payload
+        data: data,
+
+        statusCode: statusCode,
+        errorMessage: errorMessage
     }
 }
