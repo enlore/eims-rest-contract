@@ -5,6 +5,10 @@
  * @param req {object} Connect style Request object
  * @param opts {object} Meta about response
  * @param paramsGenerator {function} Optional factory for creating params object
+ *
+ * Pass a paramsGenerator as third argument to take control of creating params
+ * prop on response. Otherwise this function will just stick the req.params,
+ * req.query, and req.body object right on there all willy nilly.
  */
 module.exports = function connectPayloadFactory (req, opts, paramsGenerator) {
     opts = opts || {};
@@ -48,7 +52,7 @@ module.exports = function connectPayloadFactory (req, opts, paramsGenerator) {
       resourcePath: resourcePath,
 
       // flag indicates if this payload was sent from
-      // server without request
+      // server without request (i.e. a push via websocket)
       push: push || false,
 
       start: start,
