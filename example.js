@@ -9,10 +9,17 @@ let res = makeRes({
         name: 'farts'
     }
 }, {
-    messages: [
-        { id: 0, text: 'wooo' },
-        { id: 1, text: 'woooooo' }
-    ]
+    data: {
+        messages: [
+            { id: 0, text: 'wooo' },
+            { id: 1, text: 'woooooo' }
+        ]
+    }
+}, req => {
+    return {
+        // query: omitSensitiveData(req.query),
+        query: req.query
+    }
 })
 
 console.info(res)
