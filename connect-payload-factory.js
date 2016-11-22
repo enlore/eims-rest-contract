@@ -1,17 +1,35 @@
 /* jshint node: true, asi: true, laxcomma: true, esversion: 6 */
 'use strict'
 
-module.exports = function connectPayloadFactory (req, opts) {
+/*
+ * @param req {object} Connect style Request object
+ * @param opts {object} Meta about response
+ * @param paramsGenerator {function} Optional factory for creating params object
+ */
+module.exports = function connectPayloadFactory (req, opts, paramsGenerator) {
     opts = opts || {};
 
-    let reqId       = opts.reqId;
-    let id          = opts.docId;
-    let lastUpdated = opts.lastUpdated;
-    let push        = opts.push;
-    let start       = opts.start;
-    let limit       = opts.limit;
-    let params      = opts.params;
-    let data        = opts.data;
+    let reqId        = opts.reqId;
+    let id           = opts.docId;
+    let lastUpdated  = opts.lastUpdated;
+    let push         = opts.push;
+    let start        = opts.start;
+    let limit        = opts.limit;
+    let data         = opts.data;
+
+    let resourcePath = req.url;
+    let params;
+
+    if (paramsGenerator && typeof paramsGenerator === 'function')
+        params = paramsGenerator(req);
+
+    else {
+        params = {
+            query: req.query,
+            body: req.body,
+            params: req.params
+        }
+    }
 
     return {
       timestamp: Date.now(),
@@ -27,7 +45,7 @@ module.exports = function connectPayloadFactory (req, opts) {
       id: id,
 
       // full path to entity on server
-      resourcePath: req.url,
+      resourcePath: resourcePath,
 
       // flag indicates if this payload was sent from
       // server without request
