@@ -1,10 +1,11 @@
 /* jshint node: true, asi: true, laxcomma: true, esversion: 6 */
 'use strict'
 
-const makeRes =  require('./index').connectPayloadFactory
+const makeRes =  require('./index').connectResponseFactory
 
+// feed a connect style request object into this
 let res = makeRes({
-    url: "/pai/jfoise/things/390230r9",
+    url: "/api/jfoise/things/390230r9",
     query: {
         name: 'farts'
     }
@@ -16,6 +17,8 @@ let res = makeRes({
         ]
     }
 }, req => {
+    // this 3rd arg is an optional callback used to mutate the req props
+    // that are ultimately set on the response body
     return {
         // query: omitSensitiveData(req.query),
         query: req.query

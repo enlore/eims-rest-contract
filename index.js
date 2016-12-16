@@ -1,6 +1,11 @@
 /* jshint node: true, asi: true, laxcomma: true, esversion: 6 */
 'use strict'
 
-const connectPayloadFactory = require('./connect-payload-factory.js');
+/**
+ * This file surfaces the various response factories available via this
+ * module (of which there is only one right now).
+ */
 
-module.exports.connectPayloadFactory = connectPayloadFactory;
+const connectResponseFactory = require('./lib/connect-payload-factory.js');
+
+module.exports.connectResponseFactory = connectResponseFactory;
