@@ -6,6 +6,6 @@
  * module (of which there is only one right now).
  */
 
-const connectResponseFactory = require('./lib/connect-payload-factory.js');
+const connectResponseFactory = require('./lib/connect-response-factory.js');
 
 module.exports.connectResponseFactory = connectResponseFactory;
